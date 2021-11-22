@@ -1,82 +1,56 @@
-import Head from 'next/head'
+import { useEffect, useState } from "react"
+import names from '../data/names.json'
+import PropTypes from "prop-types"
+import Layout from "../components/layout/layout"
 
-export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+export async function getServerSideProps() {
+    return {
+        props: {
+            names
+        },
+    }
+}
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+export default function Home(names) {
+    const [name, setName] = useState(names.names[0])
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const nextIndex = names.names.indexOf(name) + 1
+            const nextName = names.names[nextIndex]
+            setName(nextName || names.names[0])
+        }, 2500)
+        return () => clearInterval(interval)
+    }, [name])
 
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
+    return (
+        <Layout>
+            <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+                <h1 className="text-6xl font-bold">
+                    Welcome to{' '}
+                    <a className="text-blue-600" href="https://goo.gl/maps/E1F2CHLvFz5oSwBKA">
+                        {name}
+                    </a>
+                </h1>
+            </main>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
+            <section className="w-full mobile:w-2/3 desktop:!w-1/2 mb-12">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1218.6393893120323!2d4.950849600000009!3d52.34722890000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x75155c8f7354f5cf!2sVeldje%2014!5e0!3m2!1snl!2snl!4v1637541546333!5m2!1snl!2snl"
+                    style={{border: '0', width: '100%', height: '400px'}}
+                    allowFullScreen=""
+                    loading="lazy"
+                    className="rounded-2xl"/>
+            </section>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
+            <footer className="flex items-center justify-center w-full h-24 border-t">
+                Author: &nbsp;
+                <a href="https://jwvbremen.nl/" target="_blank" rel="noreferrer">Jan-Willem van Bremen</a>
+            </footer>
+        </Layout>
+    )
+}
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
-    </div>
-  )
+Home.propTypes = {
+    names: PropTypes.array.isRequired
 }
