@@ -1,21 +1,9 @@
 import Head from "next/head"
-import { useEffect, useState } from "react"
-import localStorageService from "../../lib/services/localStorageService"
-import useTheme from "../../lib/theme"
 import { useEventListeners } from "../../lib/eventListeners"
 
-const darkThemeKey = 'darkTheme'
-
 export default function Layout({ children }) {
-    const [darkTheme, setDarkTheme] = useState(false)
-
-    useEffect(() => { setDarkTheme(localStorageService.getValue(darkThemeKey)) })
-
-    useTheme(darkTheme)
 
     useEventListeners()
-
-    const toggleTheme = () => { localStorageService.setKeyValue(darkThemeKey, !darkTheme); setDarkTheme(!darkTheme) }
 
     return (
         <div id="app">
