@@ -1,0 +1,7 @@
+.section {
+    @apply max-w-4xl mx-auto;
+
+    .video {
+        @apply w-full mobile:w-[calc(100%/3)] border-2 border-secondary;
+    }
+}

@@ -26,7 +26,7 @@ export default function Layout({ children }) {
                             gtag('config', 'G-3VL3JR8MM1', { page_path: window.location.pathname }); `}</script>
             </Head>
 
-            <div id="content" className="flex flex-col items-center justify-center min-h-screen py-2">{children}</div>
+            <div id="content" className="min-h-screen">{children}</div>
 
         </div>)
 }

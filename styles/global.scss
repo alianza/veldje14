@@ -50,6 +50,12 @@ a, button.link {
   box-sizing: content-box;
   color: var(--text-primary);
 
+  section {
+    a {
+      font-weight: bold;
+    }
+  }
+
   @import "styles/buttons";
 }
 
