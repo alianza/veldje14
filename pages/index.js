@@ -41,7 +41,7 @@ export default function Home(props) {
 
     return (
         <Layout>
-            <main className="flex flex-col items-center justify-center w-full flex-1 p-12 text-center min-h-screen transition-all duration-1000 ease-out">
+            <main className="flex flex-col items-center justify-center w-full flex-1 p-12 text-center min-h-screen transition-all duration-1000 ease-in-out">
                 <h1 className="text-4xl xs:text-6xl font-bold">
                     Welcome to <br />
                     <a className="text-blue-600" href="https://goo.gl/maps/E1F2CHLvFz5oSwBKA">
@@ -87,7 +87,7 @@ export default function Home(props) {
 
                     {props.users.map(user => {
                         return (
-                            <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-secondary text-primary p-2 m-2 rounded">
+                            <div key={user.username} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-secondary text-primary p-2 m-2 rounded">
                                 <div className="flex flex-col items-center">
                                     <h3 className="text-center text-lg font-bold">{user.name}</h3>
                                     <a className="text-center text-sm" href={`https://instagram.com/${user.username}/`}
@@ -117,5 +117,6 @@ export default function Home(props) {
 }
 
 Home.propTypes = {
-    names: PropTypes.array.isRequired
+    names: PropTypes.array.isRequired,
+    users: PropTypes.array.isRequired
 }
