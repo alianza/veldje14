@@ -18,7 +18,6 @@ export default function Header({names}) {
         const timeout = setTimeout(() => {
             header.classList.remove('h-screen')
             header.style.height = 'calc(15vmax + 6em)'
-            document.body.classList.remove('overflow-hidden')
             header.querySelector('span').remove()
         }, 2500)
         return () => clearTimeout(timeout)

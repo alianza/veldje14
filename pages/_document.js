@@ -4,7 +4,7 @@ export default function MyDocument() {
     return (
         <Html lang="en">
             <Head />
-            <body className="overflow-hidden">
+            <body>
             <Main/>
             <NextScript/>
             </body>
