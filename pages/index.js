@@ -1,143 +1,50 @@
-import styles from '../styles/pages/home/home.module.scss'
-import { useEffect, useState } from "react"
-import names from '../data/names.json'
-import users from '../data/users.json'
 import PropTypes from "prop-types"
+import markdownToHtml from "../lib/markdownToHTML"
+import getLocalFile from "../lib/getLocalFile"
+
 import Layout from "../components/layout/layout"
+import Map from "../components/sections/map"
+import Users from "../components/sections/users"
+import Video from "../components/sections/video"
+import Images from "../components/sections/images"
+import Markdown from "../components/sections/markdown"
 
 export async function getServerSideProps() {
+
+    const intro = await markdownToHtml(getLocalFile('intro.md'))
+
+    const names = JSON.parse(getLocalFile('names.json'))
+
+    const users = JSON.parse(getLocalFile('users.json'))
+
     return {
         props: {
             names,
-            users
+            users,
+            intro
         },
     }
 }
 
 export default function Home(props) {
-    const [name, setName] = useState(props.names[0])
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const nextIndex = props.names.indexOf(name) + 1
-            const nextName = props.names[nextIndex]
-            setName(nextName || props.names[0])
-        }, 2000)
-        return () => clearInterval(interval)
-    }, [name])
-
-    useEffect(() => {
-        document.querySelectorAll('video').forEach(video => { video.playbackRate = .5 })
-    }, [])
-
-    useEffect(() => {
-        const main = document.querySelector('main')
-        const timeout = setTimeout(() => {
-            main.classList.remove('min-h-screen')
-            main.classList.add('min-h-[216px]')
-        }, 2500)
-        return () => clearTimeout(timeout)
-    }, [])
-
-    function loadImpressionVideo() {
-        const videoSection = document.querySelector('#impression-video')
-        videoSection.querySelector('div').remove()
-        videoSection.querySelector('h1').insertAdjacentHTML('afterend', `
-                        <div class="pb-[56.25%] relative h-0">
-                        <iframe title="Impression video by Sep Toscani"
-                                src="https://player.vimeo.com/video/288406922?h=4422620a91&portrait=0&autoplay=1" 
-                                frameBorder="0"
-                                class="top-0 left-0 w-full h-full absolute"
-                                allow="autoplay; fullscreen; picture-in-picture" allowFullScreen/>
-                    <script defer src="https://player.vimeo.com/api/player.js"/>
-                </div>`
-        )
-    }
 
     return (
-        <Layout>
-            <main className="flex flex-col items-center justify-center w-full flex-1 p-12 text-center min-h-screen transition-all duration-1000 ease-in-out">
-                <h1 className="text-4xl xs:text-6xl font-bold">
-                    Welcome to <br />
-                    <a className="text-blue-600" href="https://goo.gl/maps/E1F2CHLvFz5oSwBKA">
-                        {name}
-                    </a>
-                </h1>
-            </main>
+        <Layout names={props.names}>
+            <Images/>
 
-            <section className={`${styles.section} flex justify-between flex-col mobile:flex-row`}>
-                <video className={styles.video} autoPlay muted loop src="assets/jw.mp4"/>
-                <video className={styles.video} autoPlay muted loop src="assets/seep.mp4"/>
-                <video className={styles.video} autoPlay muted loop src="assets/nelda.mp4"/>
-            </section>
+            <Markdown markdown={props.intro}/>
 
-            <section className={`${styles.section} p-4`}>
-                <p>Skatepark Middenmeer, also known as Veldje 14 or Veldoe is small a concrete skatepark in the Amsterdam-East/Watergraafsmeer area.
-                    The skatepark has been built in 2004 and since then been revamped and renovated multiple times.
-                </p>
-                <p className="mt-2">
-                    The park features concrete obstacles of which a manual pad, high square rail, low curved round rail,
-                    different quarter pipes, a large bank, small hips, a center fun-box and some movable obstacles like a round rail and bench.
-                    The park is dimly lit at night from one direction. The park is open 24 hours a day, 7 days a week.
-                </p>
-                <p className="mt-2">
-                    Check out the <a href="https://www.amsterdam.nl/sport/skateparken/alle-skateparken/skatepark-middenmeer-veldje14/" target="_blank" rel="noreferrer">official listing</a>
-                    &nbsp;of the skatepark and others on the <a href="https://www.amsterdam.nl/" target="_blank" rel="noreferrer">Amsterdam.nl</a> website.
-                </p>
-            </section>
+            <Video/>
 
-            <section id="impression-video" className={`${styles.section}`}>
-                <h1 className="text-center mb-8 mt-4">Impression video by Sep Toscani</h1>
+            <Users users={props.users}/>
 
-                <div className="relative">
-                    <img src="assets/thumbnail.webp" alt="Thumbnail"/>
-                    <div className="absolute w-full h-full top-0 right-0 flex items-center justify-center">
-                        <div onClick={() => loadImpressionVideo()} className="cursor-pointer px-5 py-2 rounded bg-[rgba(30,30,30,.9)] hover:bg-[rgb(0,173,239)]">
-                            <svg className="w-6 fill-[white]" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid" focusable="false">
-                                <polygon className="fill" points="1,0 20,10 1,20"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className={`${styles.section}`}>
-                <h1 className="text-center my-8">Featured locals</h1>
-                <div className="flex flex-wrap justify-center">
-
-                    {props.users.map(user => {
-                        return (
-                            <div key={user.username} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-secondary text-primary p-2 m-2 rounded">
-                                <div className="flex flex-col items-center">
-                                    <h1 className="text-center text-lg font-bold">{user.name}</h1>
-                                    <a className="text-center text-sm" href={`https://instagram.com/${user.username}/`}
-                                       target="_blank" rel="noreferrer">@{user.username}</a>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-
-            </section>
-
-            <section className={`${styles.section} w-full mobile:w-2/3 desktop:!w-1/2 my-12`}>
-                <h1 className="text-center my-8">Map</h1>
-                <iframe title="Google Map - Veldje 14"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1218.6393893120323!2d4.950849600000009!3d52.34722890000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x75155c8f7354f5cf!2sVeldje%2014!5e0!3m2!1snl!2snl!4v1637541546333!5m2!1snl!2snl"
-                        allowFullScreen
-                        loading="lazy"
-                        className="rounded-2xl border-none w-full h-[400px]"/>
-            </section>
-
-            <footer className="flex items-center align-middle justify-between w-full h-24 border-t px-4">
-                <span> Location: <a href="https://goo.gl/maps/Cz6mHoVYugdGnnaK6" target="_blank" rel="noreferrer">Middenmeerpad 7, 1098 SM Amsterdam</a></span>
-                <span> Author: <a href="https://jwvbremen.nl/" target="_blank" rel="noreferrer">Jan-Willem van Bremen</a></span>
-            </footer>
+            <Map/>
         </Layout>
     )
 }
 
 Home.propTypes = {
     names: PropTypes.array.isRequired,
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    intro: PropTypes.string.isRequired
 }
