@@ -29,7 +29,11 @@ export default function Header({names}) {
             <h1 className="text-[5.4vmax] leading-[5.4vmax] font-bold">
                 Welcome to
             </h1>
-            <h1 className="text-[5.4vmax] leading-[5.4vmax] font-bold"><a className="text-blue-600" href="https://goo.gl/maps/JvMoiDDZnXPgqVJNA">{name}</a></h1>
+            <h1 className="text-[5.4vmax] leading-[5.4vmax] font-bold">
+                <a className="text-blue-600" href="https://goo.gl/maps/JvMoiDDZnXPgqVJNA" target="_blank" rel="noreferrer">
+                    {name}
+                </a>
+            </h1>
             <span className="absolute bottom-4">Website by: <strong className="underline">
                 <a href="https://jwvbremen.nl/" target="_blank" rel="noreferrer">Jan-Willem van Bremen</a></strong>
             </span>
