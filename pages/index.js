@@ -39,6 +39,21 @@ export default function Home(props) {
         return () => clearTimeout(timeout)
     }, [])
 
+    function loadImpressionVideo() {
+        const videoSection = document.querySelector('#impression-video')
+        videoSection.querySelector('div').remove()
+        videoSection.querySelector('h1').insertAdjacentHTML('afterend', `
+                        <div class="pb-[56.25%] relative h-0">
+                        <iframe title="Impression video by Sep Toscani"
+                                src="https://player.vimeo.com/video/288406922?h=4422620a91&portrait=0&autoplay=1" 
+                                frameBorder="0"
+                                class="top-0 left-0 w-full h-full absolute"
+                                allow="autoplay; fullscreen; picture-in-picture" allowFullScreen/>
+                    <script defer src="https://player.vimeo.com/api/player.js"/>
+                </div>`
+        )
+    }
+
     return (
         <Layout>
             <main className="flex flex-col items-center justify-center w-full flex-1 p-12 text-center min-h-screen transition-all duration-1000 ease-in-out">
@@ -57,7 +72,7 @@ export default function Home(props) {
             </section>
 
             <section className={`${styles.section} p-4`}>
-                <p>Skatepark Middemeer, also known as Veldje 14 or Veldoe is small a concrete skatepark in the Amsterdam-East/Watergraafsmeer area.
+                <p>Skatepark Middenmeer, also known as Veldje 14 or Veldoe is small a concrete skatepark in the Amsterdam-East/Watergraafsmeer area.
                     The skatepark has been built in 2004 and since then been revamped and renovated multiple times.
                 </p>
                 <p className="mt-2">
@@ -67,29 +82,34 @@ export default function Home(props) {
                 </p>
                 <p className="mt-2">
                     Check out the <a href="https://www.amsterdam.nl/sport/skateparken/alle-skateparken/skatepark-middenmeer-veldje14/" target="_blank" rel="noreferrer">official listing</a>
-                    &nbsp;of the skatepark on the <a href="https://www.amsterdam.nl/" target="_blank" rel="noreferrer">Amsterdam.nl</a> website.
+                    &nbsp;of the skatepark and others on the <a href="https://www.amsterdam.nl/" target="_blank" rel="noreferrer">Amsterdam.nl</a> website.
                 </p>
             </section>
 
-            <section className={`${styles.section}`}>
-                <h1 className="text-center mb-4">Impression video by Sep Toscani</h1>
-                <div className="pb-[56.25%] relative h-0">
-                        <iframe src="https://player.vimeo.com/video/288406922?h=4422620a91&portrait=0" frameBorder="0"
-                                className="top-0 left-0 w-full h-full absolute"
-                                allow="autoplay; fullscreen; picture-in-picture" allowFullScreen/>
-                    <script src="https://player.vimeo.com/api/player.js"/>
+            <section id="impression-video" className={`${styles.section}`}>
+                <h1 className="text-center mb-8 mt-4">Impression video by Sep Toscani</h1>
+
+                <div className="relative">
+                    <img src="assets/thumbnail.webp" alt="Thumbnail"/>
+                    <div className="absolute w-full h-full top-0 right-0 flex items-center justify-center">
+                        <div onClick={() => loadImpressionVideo()} className="cursor-pointer px-5 py-2 rounded bg-[rgba(30,30,30,.9)] hover:bg-[rgb(0,173,239)]">
+                            <svg className="w-6 fill-[white]" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid" focusable="false">
+                                <polygon className="fill" points="1,0 20,10 1,20"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section className={`${styles.section}`}>
-                <h1 className="text-center my-4">Featured locals</h1>
+                <h1 className="text-center my-8">Featured locals</h1>
                 <div className="flex flex-wrap justify-center">
 
                     {props.users.map(user => {
                         return (
                             <div key={user.username} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-secondary text-primary p-2 m-2 rounded">
                                 <div className="flex flex-col items-center">
-                                    <h3 className="text-center text-lg font-bold">{user.name}</h3>
+                                    <h1 className="text-center text-lg font-bold">{user.name}</h1>
                                     <a className="text-center text-sm" href={`https://instagram.com/${user.username}/`}
                                        target="_blank" rel="noreferrer">@{user.username}</a>
                                 </div>
@@ -101,11 +121,12 @@ export default function Home(props) {
             </section>
 
             <section className={`${styles.section} w-full mobile:w-2/3 desktop:!w-1/2 my-12`}>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1218.6393893120323!2d4.950849600000009!3d52.34722890000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x75155c8f7354f5cf!2sVeldje%2014!5e0!3m2!1snl!2snl!4v1637541546333!5m2!1snl!2snl"
-                    allowFullScreen
-                    loading="lazy"
-                    className="rounded-2xl border-none w-full h-[400px]"/>
+                <h1 className="text-center my-8">Map</h1>
+                <iframe title="Google Map - Veldje 14"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1218.6393893120323!2d4.950849600000009!3d52.34722890000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x75155c8f7354f5cf!2sVeldje%2014!5e0!3m2!1snl!2snl!4v1637541546333!5m2!1snl!2snl"
+                        allowFullScreen
+                        loading="lazy"
+                        className="rounded-2xl border-none w-full h-[400px]"/>
             </section>
 
             <footer className="flex items-center align-middle justify-between w-full h-24 border-t px-4">
