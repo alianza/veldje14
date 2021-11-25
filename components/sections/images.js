@@ -15,15 +15,15 @@ export default function Images() {
 
     return(
         <section id="images" className={`${styles.section} flex justify-between flex-col mobile:flex-row`}>
-            <video className={styles.video} muted loop>
+            <video className={styles.video} muted loop playsInline>
                 <source src="assets/slideshows/jw.webm" type="video/webm" />
                 <source src="assets/slideshows/jw.mp4" type="video/mp4" />
             </video>
-            <video className={styles.video} muted loop>
+            <video className={styles.video} muted loop playsInline>
                 <source src="assets/slideshows/seep.webm" type="video/webm" />
                 <source src="assets/slideshows/seep.mp4" type="video/mp4" />
             </video>
-            <video className={styles.video} muted loop>
+            <video className={styles.video} muted loop playsInline>
                 <source src="assets/slideshows/nelda.webm" type="video/webm" />
                 <source src="assets/slideshows/nelda.mp4" type="video/mp4" />
             </video>
