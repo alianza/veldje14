@@ -32,6 +32,7 @@ export default function Home(props) {
 
     return (
         <Layout names={props.names}>
+
             <Images/>
 
             <Markdown markdown={props.intro}/>
