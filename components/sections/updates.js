@@ -25,7 +25,7 @@ export default function Updates() {
     e.target.reset()
     const update = {
       name: formData.get("name"),
-      dry: formData.get("dry"),
+      dry: formData.get("dry") === "true",
       message: formData.get("message"),
       timestamp: Date.now()
     }
