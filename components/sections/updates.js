@@ -42,16 +42,16 @@ export default function Updates() {
   }
 
   return(
-    <section className={`${styles.section} w-full mobile:w-2/3 desktop:!w-1/2 my-12`}>
+    <section className={`${styles.section} ${styles.withPadding} w-full mobile:w-2/3 desktop:!w-1/2 my-12`}>
       <h1 id="latestUpdates" className={`${styles.title}`}>Latest updates</h1>
 
-      <div className="flex flex-col gap-4 max-h-[480px] overflow-y-auto">
+      <div className="flex flex-col gap-4 max-h-[480px] overflow-y-auto items-center">
         {
           updates ? Object.values(updates).reverse().map(update => (
             <div key={update.timestamp}>
               <h2>Naam: {update.name}</h2>
               <p>{getFormattedDate(new Date(update.timestamp))}</p>
-              <p>{update.dry ? texts.dry : texts.wet}</p>
+              <p>The park is <b>{update.dry ? texts.dry : texts.wet}</b></p>
               <p>{update.message}</p>
             </div>
           )) : <span className="text-center">No Updates yet...</span>
@@ -70,10 +70,14 @@ export default function Updates() {
         <div className="flex items-center">
           <span className="mr-2" >Is the park dry?:</span>
           <fieldset className="inline-block">
-            <input className="mr-1" id="dry" type="radio" name="dry" value="true" required/>
-            <label className="mr-4" htmlFor="dry">{texts.dry}</label>
-            <input className="mr-1" id="wet" type="radio" name="dry" value="false" required/>
-            <label htmlFor="wet">{texts.wet}</label>
+            <div className="inline-flex flex-nowrap items-center">
+              <input className="mr-1" id="dry" type="radio" name="dry" value="true" required/>
+              <label className="mr-4" htmlFor="dry">{texts.dry}</label>
+            </div>
+            <div className="inline-flex flex-nowrap items-center">
+              <input className="mr-1" id="wet" type="radio" name="dry" value="false" required/>
+              <label htmlFor="wet">{texts.wet}</label>
+            </div>
           </fieldset>
         </div>
         <div className="flex items-top">
