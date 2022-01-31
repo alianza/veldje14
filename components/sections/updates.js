@@ -49,7 +49,7 @@ export default function Updates() {
         {
           updates ? Object.values(updates).reverse().map(update => (
             <div key={update.timestamp}>
-              <h2>Naam: {update.name}</h2>
+              <h2>Name: {update.name}</h2>
               <p>{getFormattedDate(new Date(update.timestamp))}</p>
               <p>The park is <b>{update.dry ? texts.dry : texts.wet}</b></p>
               <p>{update.message}</p>
