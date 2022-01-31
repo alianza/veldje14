@@ -1,7 +1,8 @@
 import styles from "../../styles/modules/utils.module.scss"
 import { useEffect, useState } from "react"
 import { getFormattedDate } from "../../lib/getFormattedDate"
-import { getUpdates, pushUpdate } from "../../firebase/firebaseService"
+import { getUpdatesRef, pushUpdate } from "../../firebase/firebaseService"
+import { onValue } from "firebase/database"
 
 const texts = {
   dry: "Dry 🏜️",
@@ -13,7 +14,7 @@ export default function Updates() {
   const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
-    getUpdates().then(snapshot => {
+    onValue(getUpdatesRef(), snapshot => {
       setUpdates(snapshot.val())
     })
   }, [])
@@ -76,7 +77,7 @@ export default function Updates() {
           </fieldset>
         </div>
         <div className="flex items-top">
-          <label className="mr-2" htmlFor="message">Extra message?:</label>
+          <label className="mr-2" htmlFor="message">Extra message:</label>
           <textarea className="grow p-2 rounded bg-accent-2" id="message" name="message" placeholder="Message"/>
         </div>
         {submitted && <span>Thank you for letting everybody know the status of the skatepark at the moment, your service is much appreciated!</span>}

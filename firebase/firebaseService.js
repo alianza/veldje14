@@ -1,18 +1,24 @@
 import { getDatabase, limitToLast, onValue, orderByChild, push, query, ref } from "firebase/database"
 
+
+export const getUpdatesRef = () => {
+  const db = getDatabase()
+
+  const dbRefObject = query(ref(db,`updates`), orderByChild("timestamp"), limitToLast(10))
+
+  return dbRefObject
+}
+
 export const getUpdates = () => {
-  const database = getDatabase()
-
-  const dbRefObject = query(ref(database,`updates`), orderByChild("timestamp"), limitToLast(10))
-
   return new Promise((resolve => {
-    onValue(dbRefObject, snapshot => {
-      resolve(snapshot)
+    onValue(getUpdatesRef(), snapshot => {
+      resolve(snapshot.val())
     })
   }))
 }
 
 export const pushUpdate = update => {
-  const db = getDatabase();
+  const db = getDatabase()
+
   push(ref(db, 'updates'), update)
 }
