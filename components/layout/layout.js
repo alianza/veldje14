@@ -22,10 +22,10 @@ export default function Layout({ names, children }) {
                 <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' />
                 <link rel="manifest" href="/manifest.webmanifest"/>
                 <script defer async src="https://www.googletagmanager.com/gtag/js?id=G-3VL3JR8MM1"/>
-                <script defer>{`  window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', 'G-3VL3JR8MM1', { page_path: window.location.pathname }); `}</script>
+                {/*<script defer>{`  window.dataLayer = window.dataLayer || [];*/}
+                {/*            function gtag(){dataLayer.push(arguments);}*/}
+                {/*            gtag('js', new Date());*/}
+                {/*            gtag('config', 'G-3VL3JR8MM1', { page_path: window.location.pathname }); `}</script>*/}
             </Head>
 
             <Header names={names}/>
