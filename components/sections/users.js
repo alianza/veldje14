@@ -2,6 +2,7 @@ import styles from "../../styles/modules/utils.module.scss"
 import Image from "next/image"
 
 export default function Users({ users }) {
+
     return(
         <section className={`${styles.section}`}>
             <div className="flex justify-center items-center px-4">

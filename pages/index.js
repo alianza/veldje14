@@ -10,8 +10,10 @@ import Video from "../components/sections/video"
 import Images from "../components/sections/images"
 import Markdown from "../components/sections/markdown"
 import Message from "../components/sections/message"
+import Updates from "../components/sections/updates"
+import "../firebase/clientApp"
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 
     const intro = await markdownToHtml(getLocalFile('intro.md'))
 
@@ -38,6 +40,8 @@ export default function Home(props) {
             <Markdown markdown={props.intro}/>
 
             <Video/>
+
+            <Updates/>
 
             <Users users={props.users}/>
 
