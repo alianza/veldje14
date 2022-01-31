@@ -1,7 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -18,9 +16,6 @@ module.exports = {
         'accent-8': 'var(--accent-8)',
         'accent-9': 'var(--accent-9)',
       },
-      boxShadow: {
-        '3xl': '0 0 6px rgba(0, 0, 0, 0.5)',
-      },
       screens: {
         'desktop': '900px', //var(--desktop)
         'tablet': '600px', //var(--tablet)
@@ -28,8 +23,6 @@ module.exports = {
         'xs': '320px', // var(--xs)
       },
     },
-  },
-  variants: {
   },
   plugins: [],
 }
